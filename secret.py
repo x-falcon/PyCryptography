@@ -2,6 +2,7 @@
 import base64
 import aes
 import rsa
+import ecc
 
 if __name__ == '__main__':
     aesKey = b"pI3UfYGBWXR938Ui0ngNsmOsJ675kYcfqhzG86l7K24="
@@ -15,3 +16,6 @@ if __name__ == '__main__':
     private, public = rsa.generate_key()
     print(base64.b64encode(private).decode())
     print(base64.b64encode(public).decode())
+    private, public = ecc.generate_key()
+    signature = ecc.sign_with_sha256(private, b"this is message")
+    print(ecc.verify_signature(public, signature, b"this is message"))
